@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Button trigger modal -->
+<div style="margin-top: 5rem;">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tableadd">
+        테이블 추가
+    </button>
+</div>
+  
+  <!-- Modal -->
+<div class="modal fade" id="tableadd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">테이블 추가</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'createtable' %}" method="post">
+            {%csrf_token%}
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">테이블 번호 입력</label>
+                    <input type="number" class="form-control" name="number">
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+            <button type="submit" class="btn btn-primary">추가하기</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<div style="margin-top: 3rem;">
+    <div class="row row-cols-2 row-cols-md-3 g-4">
+        {% for table in tables %}
+            <div class="col">
+                <div type="button" class="card h-100" data-bs-toggle="modal" data-bs-target="#table-{{table.id}}">
+                    <div class="card-body">
+                    <h5 class="card-title">{{table.number}}</h5>
+                    <p class="card-text">{{table.total}} 원</p>
+                    </div>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+</div>
+{% for table in tables %}
+    <div class="modal fade" id="table-{{table.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">테이블 주문</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'updatemenu' table.id %}" method="post">
+                    {%csrf_token%}
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">인원</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">메뉴1</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">메뉴2</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">메뉴3</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">메뉴4</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">음료1</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">음료2</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                            <label for="exampleFormControlInput1" class="form-label">음료3</label>
+                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary">수정하기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endfor%}
+
+{% endblock %}
+
