@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 {% block content %}
-
+{% if user.is_authenticated %}
 <!-- Modal -->
 <div class="modal fade" id="tableadd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -58,40 +58,97 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">테이블 주문</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">{{table.number}}번 테이블 : {{table.total}}원</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{% url 'updatemenu' table.id %}" method="post">
+                <form action="{% url 'update' table.id %}" method="post">
                     {%csrf_token%}
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">인원</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">메뉴1</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">메뉴2</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">메뉴3</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">메뉴4</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">음료1</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">음료2</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
-                            <label for="exampleFormControlInput1" class="form-label">음료3</label>
-                            <input type="number" class="form-control" name="price" value="{{table.menu1}}">
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.0.name}} : {{menus.0.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="person" value="{{table.person}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.1.name}} : {{menus.1.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="menu1" value="{{table.menu1}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.2.name}} : {{menus.2.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="menu2" value="{{table.menu2}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.3.name}} : {{menus.3.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="menu3" value="{{table.menu3}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.4.name}} : {{menus.4.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="menu4" value="{{table.menu4}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.5.name}} : {{menus.5.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="drink1" value="{{table.drink1}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.6.name}} : {{menus.6.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="drink2" value="{{table.drink2}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.7.name}} : {{menus.7.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="drink3" value="{{table.drink3}}">
+                            </div>
+                        </div>
+                        <div class="mb-2 row">
+                            <div class="col">
+                                <label for="exampleFormControlInput1" class="col-form-label">{{menus.8.name}} : {{menus.8.price}}원</label>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="drink4" value="{{table.drink4}}">
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <a type="button" class="btn btn-danger" href="{% url 'endtable' table.id %}">계산완료</a>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                        <button type="submit" class="btn btn-primary">수정하기</button>
+                        <button type="submit" class="btn btn-primary">저장하기</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 {%endfor%}
-
+{%else%}
+<h2>로그인을 진행해주세요</h2>
+{% endif %}
 {% endblock %}
 
