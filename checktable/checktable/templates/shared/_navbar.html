@@ -1,6 +1,11 @@
-<nav class="navbar navbar-dark bg-dark fixed-top">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<nav class="navbar navbar-dark bg-transparent">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'tables' %}">동대멋사 주점 테이블 관리</a>
+      <a class="navbar-brand" href="{% url 'tables' %}">
+        <img id="logo" src="https://ifh.cc/g/54ycRY.png">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -15,7 +20,10 @@
               <a class="nav-link active" aria-current="page" href="#">로그인</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'showmenus' %}">메뉴설정</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'tables' %}">테이블 관리</a>
+          </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'showmenus' %}">메뉴 관리</a>
             </li>
           </ul>
         </div>
